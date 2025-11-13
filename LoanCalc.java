@@ -48,10 +48,12 @@ public class LoanCalc {
 	public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		// Replace the following statement with your code
 		double g = (loan / n);
+		//System.out.println("DEBUG RATE PASSED TO SOLVER: " + rate);
 		double newRate=1.0+(rate/100.0);
 		iterationCounter = 0;
 		double newLoan = loan;
-		while (newLoan > 0) {
+		//System.out.println("DEBUG RATE PASSED TO SOLVER: " + newRate);
+		while (newLoan > epsilon) {
 			newLoan = loan;
 			iterationCounter++;
 			// System.out.println("G: " + g);
@@ -61,9 +63,9 @@ public class LoanCalc {
 				newLoan = newLoan - g;
 				//System.out.println("New loan: " + newLoan);
 			}
-			g = g + 0.01;
+			g = g + 0.001;
 		}
-		g = (g - 0.01);
+		g = (g - 0.001);
 		//System.out.println("using brute force: " + g);
 		//System.out.println("number of iterations: " + iterationCounter);
 
@@ -85,7 +87,7 @@ public class LoanCalc {
 		double newRate=1.0+(rate/100.0);
 		iterationCounter = 0;
 		double newLoan = loan;
-		while (h-l>0.1) {
+		while (h-l>epsilon) {
 			for (int i = 0; i < n; i++) {
 				newLoan = newLoan * newRate;
 				// System.out.println("New loan: " + newLoan);
