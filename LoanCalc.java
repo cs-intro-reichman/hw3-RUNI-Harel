@@ -58,9 +58,11 @@ public class LoanCalc {
 			iterationCounter++;
 			// System.out.println("G: " + g);
 			for (int i = 0; i < n; i++) {
+				newLoan = newLoan - g;
 				newLoan = newLoan * newRate;
 				// System.out.println("New loan: " + newLoan);
-				newLoan = newLoan - g;
+				// // i was first adding then substracting which caused the inconsistence
+				//newLoan = newLoan - g;
 				//System.out.println("New loan: " + newLoan);
 			}
 			g = g + 0.001;
@@ -68,7 +70,7 @@ public class LoanCalc {
 		g = (g - 0.001);
 		//System.out.println("using brute force: " + g);
 		//System.out.println("number of iterations: " + iterationCounter);
-
+		iterationCounter--;
 		//System.out.println("Whats left: " + endBalance(loan,rate,n,g));
 		return g;
 	}
@@ -89,9 +91,10 @@ public class LoanCalc {
 		double newLoan = loan;
 		while (h-l>epsilon) {
 			for (int i = 0; i < n; i++) {
+				newLoan = newLoan - g;
 				newLoan = newLoan * newRate;
 				// System.out.println("New loan: " + newLoan);
-				newLoan = newLoan - g;
+				//newLoan = newLoan - g;
 				//System.out.println("New loan: " + newLoan);
 			}
 			if (newLoan>0) {
