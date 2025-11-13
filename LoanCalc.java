@@ -15,9 +15,9 @@ public class LoanCalc {
 		System.out.println("Loan = " + loan + ", interest rate = " + rate + "%, periods = " + n);
 
 		// Computes the periodical payment using brute force search
-		//System.out.print("\nPeriodical payment, using brute force: ");
-		//System.out.println((int) bruteForceSolver(loan, rate, n, epsilon));
-		//System.out.println("number of iterations: " + iterationCounter);
+		System.out.print("\nPeriodical payment, using brute force: ");
+		System.out.println((int) bruteForceSolver(loan, rate, n, epsilon));
+		System.out.println("number of iterations: " + iterationCounter);
 
 		// Computes the periodical payment using bisection search
 		System.out.print("\nPeriodical payment, using bi-section search: ");
@@ -48,6 +48,7 @@ public class LoanCalc {
 	public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		// Replace the following statement with your code
 		double g = (loan / n);
+		double newRate=1.0+(rate/100.0);
 		iterationCounter = 0;
 		double newLoan = loan;
 		while (newLoan > 0) {
@@ -55,15 +56,18 @@ public class LoanCalc {
 			iterationCounter++;
 			// System.out.println("G: " + g);
 			for (int i = 0; i < n; i++) {
-				newLoan = newLoan * rate;
+				newLoan = newLoan * newRate;
 				// System.out.println("New loan: " + newLoan);
 				newLoan = newLoan - g;
-				System.out.println("New loan: " + newLoan);
+				//System.out.println("New loan: " + newLoan);
 			}
 			g = g + 0.01;
 		}
-		System.out.println(g - 0.01);
-		System.out.println("Whats left: " + endBalance(loan,rate,n,g));
+		g = (g - 0.01);
+		//System.out.println("using brute force: " + g);
+		//System.out.println("number of iterations: " + iterationCounter);
+
+		//System.out.println("Whats left: " + endBalance(loan,rate,n,g));
 		return g;
 	}
 
@@ -78,14 +82,15 @@ public class LoanCalc {
 		double l = (loan / n);
 		double h = loan;
 		double g = (l+h)/2;
+		double newRate=1.0+(rate/100.0);
 		iterationCounter = 0;
 		double newLoan = loan;
 		while (h-l>0.1) {
 			for (int i = 0; i < n; i++) {
-				newLoan = newLoan * rate;
+				newLoan = newLoan * newRate;
 				// System.out.println("New loan: " + newLoan);
 				newLoan = newLoan - g;
-				System.out.println("New loan: " + newLoan);
+				//System.out.println("New loan: " + newLoan);
 			}
 			if (newLoan>0) {
 				l=g;
@@ -96,6 +101,8 @@ public class LoanCalc {
 			newLoan=loan;
 			iterationCounter++;
 		}
+		//System.out.println("Periodical payment, using bi-section search: " + g);
+		//System.out.println("number of iterations: " + iterationCounter);
 		return g;
 	}
 }
